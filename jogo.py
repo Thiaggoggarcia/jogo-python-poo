@@ -15,10 +15,21 @@ class Personagem:
     
     def exibir_detalhes(self):
         return f"Nome: {self.get_nome()}\nVida: {self.get_vida()}\nNível: {self.get_nivel()}"
+    
+    def atacar(self, alvo):
+        dano = self.__nivel * 2
+        alvo.receber_dano(dano)
+        print(f"\n{self.get_nome()} atacou {alvo.get_nome()} e causou {dano} de dano!")
+        
+    def receber_dano(self,dano):
+        self.__vida -= dano
+        if self.__vida < 0:
+            self.__vida = 0
+        
         
 class Heroi(Personagem):
     def __init__(self, nome, vida, nivel, habilidade_especial):
-        super().__init__(nome, nivel, vida)
+        super().__init__(nome, vida, nivel)
         self.__habilidade_especial = habilidade_especial
         
     def get_habilidade_especial(self):
@@ -40,10 +51,26 @@ class Inimigo(Personagem):
         return f"{super().exibir_detalhes()}\nTipo: {self.__tipo}"
     
     
+class Jogo:
+    def __init__(self) -> None:
+        self.heroi = Heroi(nome="Thiago", vida=100, nivel= 5, habilidade_especial="Super Velocidade")
+        self.inimigo = Inimigo(nome="Dragão", vida=100, nivel=6, tipo="Voador")
     
-heroi = Heroi("Thiago", 100, 5, "Força")
-print(heroi.exibir_detalhes())
-print()
-inimigo = Inimigo("Zezim", 85, 5, "Voador")
+    def iniciar_batalha(self):
+        print("Iniciando Batalha....\n")
+        while self.heroi.get_vida() > 0 and self.inimigo.get_vida() > 0:
+            print("***** Dados dos Personagens *****")
+            print(self.heroi.exibir_detalhes())
+            print()
+            print(self.inimigo.exibir_detalhes())
+            
+            input("\nPressione Enter para Atacar....")
+            escolha = input("Escolha (1 - Ataque Normal, 2 - Ataque Especial): ")      
 
-print(inimigo.exibir_detalhes())
+            if int(escolha) == 1:
+                self.heroi.atacar(self.inimigo)
+                print(f"\n{self.inimigo.get_nome()} Sofreu dano" )
+            
+    
+jogo = Jogo()
+jogo.iniciar_batalha()
