@@ -67,10 +67,15 @@ class Jogo:
             input("\nPressione Enter para Atacar....")
             escolha = input("Escolha (1 - Ataque Normal, 2 - Ataque Especial): ")      
 
-            if int(escolha) == 1:
+            if int(escolha) == "1":
                 self.heroi.atacar(self.inimigo)
-                print(f"\n{self.inimigo.get_nome()} Sofreu dano" )
+
+            elif escolha == "2":
+                print("tessssssssste")
+                continue
             
+            else:
+                print("Opção inválida, tente novamente!")
     
 jogo = Jogo()
 jogo.iniciar_batalha()
