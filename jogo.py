@@ -53,8 +53,8 @@ class Inimigo(Personagem):
     
 class Jogo:
     def __init__(self) -> None:
-        self.heroi = Heroi(nome="Thiago", vida=100, nivel= 5, habilidade_especial="Super Velocidade")
-        self.inimigo = Inimigo(nome="Dragão", vida=100, nivel=6, tipo="Voador")
+        self.heroi = Heroi(nome="Thiago", vida=30, nivel= 5, habilidade_especial="Super Velocidade")
+        self.inimigo = Inimigo(nome="Dragão", vida=30, nivel=6, tipo="Voador")
     
     def iniciar_batalha(self):
         print("Iniciando Batalha....\n")
@@ -67,15 +67,20 @@ class Jogo:
             input("\nPressione Enter para Atacar....")
             escolha = input("Escolha (1 - Ataque Normal, 2 - Ataque Especial): ")      
 
-            if int(escolha) == "1":
+            if int(escolha) == 1:
                 self.heroi.atacar(self.inimigo)
 
-            elif escolha == "2":
+            elif int(escolha) == 2:
                 print("tessssssssste")
                 continue
             
             else:
                 print("Opção inválida, tente novamente!")
+
+        if self.inimigo.get_vida == 0:
+            print(f"{self.heroi.get_nome} venceu a batalha")
+        elif self.heroi.get_vida == 0:
+            print(f"{self.inimigo.get_nome} venceu a batalha")
     
 jogo = Jogo()
 jogo.iniciar_batalha()
